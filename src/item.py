@@ -9,6 +9,7 @@ class Item:
         self.name = name
         self.price = price
         self.quantity = quantity
+        Item.all.append(self)
         """
         Создание экземпляра класса item.
 
@@ -19,12 +20,10 @@ class Item:
 
     def calculate_total_price(self) -> float:
         return self.price * self.quantity
-       # Рассчитывает общую стоимость конкретного товара в магазине.
-       #  :return: Общая стоимость товара.
+        # Рассчитывает общую стоимость конкретного товара в магазине.
+        #  :return: Общая стоимость товара.
         pass
 
     def apply_discount(self) -> None:
-        """
-        Применяет установленную скидку для конкретного товара.
-        """
-        pass
+        self.price *= self.pay_rate
+        # Применяет установленную скидку для конкретного товара.
