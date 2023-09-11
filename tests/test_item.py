@@ -7,3 +7,15 @@ def test_calculate_total_price():
     item2 = Item("Ноутбук", 20000, 5)
     assert item1.calculate_total_price() == 200000
     assert item2.calculate_total_price() == 100000
+
+
+def test_apply_discount():
+    item1 = Item("Смартфон", 10000, 20)
+    item2 = Item("Ноутбук", 20000, 5)
+    item1.price_discount = 0.9  # 10% скидка
+    item2.price_discount = 0.8  # 20% скидка
+    # Проверяем применение скидки
+    item1.apply_discount()
+    item2.apply_discount()
+    assert item1.price == 10000.0
+    assert item2.price == 20000.0
