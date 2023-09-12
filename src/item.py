@@ -6,22 +6,30 @@ class Item:
     all = []
 
     def __init__(self, name: str, price: float, quantity: int) -> None:
-        self.__name = name
-        self.price = price
-        self.quantity = quantity
-        Item.all.append(self)
         """
-        Создание экземпляра класса item.
-
+            Создание экземпляра класса item.
         :param name: Название товара.
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
+        self.__name = name
+        self.price = price
+        self.quantity = quantity
+        Item.all.append(self)
+
 
     @property
-    def nane(self) -> str:
+    def name(self) -> str:
         return self.__name
 
+    @name.setter
+    def name(self, value: str) -> None:
+        """проверять, что длина наименования товара не больше
+        10 симвовов. В противном случае, обрезать строку
+        (оставить первые 10 символов)."""
+        if len(value) > 10:
+            value = value[:10]
+        self.__name = value
 
     def calculate_total_price(self) -> float:
         return self.price * self.quantity
