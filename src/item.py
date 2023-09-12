@@ -6,7 +6,7 @@ class Item:
     all = []
 
     def __init__(self, name: str, price: float, quantity: int) -> None:
-        self.name = name
+        self.__name = name
         self.price = price
         self.quantity = quantity
         Item.all.append(self)
@@ -17,6 +17,11 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
+
+    @property
+    def nane(self) -> str:
+        return self.__name
+
 
     def calculate_total_price(self) -> float:
         return self.price * self.quantity
