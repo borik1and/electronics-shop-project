@@ -1,3 +1,6 @@
+import csv
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -16,7 +19,6 @@ class Item:
         self.price = price
         self.quantity = quantity
         Item.all.append(self)
-
 
     @property
     def name(self) -> str:
@@ -40,3 +42,21 @@ class Item:
     def apply_discount(self) -> None:
         self.price *= self.pay_rate
         # Применяет установленную скидку для конкретного товара.
+
+    @classmethod
+    def instantiate_from_csv(cls, csv_file: str) -> list:
+        items = []
+        with open(csv_file, 'r', newline='', encoding='pt154') as file:
+            reader = csv.DictReader(file)
+
+            # Print the header row
+            header = next(reader)
+            print(f"Header: {header}")
+
+            for row in reader:
+                name = row['name']
+                price = cls.string_to_number(row['price'])
+                quantity = int(row['quantity'])
+                item = cls(name, price, quantity)
+                items.append(item)
+        return items
