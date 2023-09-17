@@ -19,3 +19,8 @@ def test_apply_discount():
     item2.apply_discount()
     assert item1.price == 10000.0
     assert item2.price == 20000.0
+
+
+def test_instantiate_from_csv():
+    num_writes = len(Item.instantiate_from_csv('src/items.csv'))
+    assert num_writes == 5
