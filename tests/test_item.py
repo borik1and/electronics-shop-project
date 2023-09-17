@@ -27,6 +27,8 @@ def test_instantiate_from_csv():
 
 def test_string_to_number():
     num1 = Item.string_to_number('10')
+    num3 = Item.string_to_number('5.0')
     num2 = Item.string_to_number('TV')
     assert num1 == 10
     assert num2 == 0
+    assert num3 == 5
