@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 poetry.lock
 test.py
+main_test.py
 # C extensions
 *.so
 
