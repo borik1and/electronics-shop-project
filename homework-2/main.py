@@ -1,4 +1,4 @@
-from src.test import Item
+from src.item import Item
 
 if __name__ == '__main__':
     item = Item('Телефон', 10000, 5)
@@ -14,7 +14,7 @@ if __name__ == '__main__':
     Item.instantiate_from_csv('src/items.csv')  # создание объектов из данных файла
     assert len(Item.all) == 5  # в файле 5 записей с данными по товарам
 
-    item1 = Item.all[0]
+    item1 = Item.all[0][0]
     assert item1.name == 'Смартфон'
 
     assert Item.string_to_number('5') == 5
