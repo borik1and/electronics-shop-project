@@ -62,14 +62,11 @@ class Item:
         return items
 
     def string_to_number(value: str) -> int:
-        # Удалим возможные кавычки из строки
-        cleaned_string = value.strip("'\"")
         try:
-            float_value = float(cleaned_string)
-            # Округлим float до целого числа
-            result = round(float_value)
+            # Преобразовать строку в число
+            float_value = float(value)
+            int_value = int(float_value)
+            return int_value
         except ValueError:
-            # Если не удалось преобразовать, вернем значение по умолчанию (например, 0)
-            result = 0
-
-        return result
+            # Если преобразование не удалось, вернуть 0 или другое значение по умолчанию
+            return 0
