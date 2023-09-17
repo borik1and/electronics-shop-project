@@ -30,4 +30,3 @@ def test_string_to_number():
     num2 = Item.string_to_number('TV')
     assert num1 == 10
     assert num2 == 0
-
