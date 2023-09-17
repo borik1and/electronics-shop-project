@@ -15,11 +15,12 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
+
         self.__name = name
         self.price = price
         self.quantity = quantity
-        Item.all.append(self)
-
+        # Item.all.append(self)
+        # print(all)
     @property
     def name(self) -> str:
         return self.__name
@@ -45,18 +46,24 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls, csv_file: str) -> list:
+        # инициализирующий экземпляры класса Item данными из файла src/items.csv
         items = []
         with open(csv_file, 'r', newline='', encoding='pt154') as file:
             reader = csv.DictReader(file)
 
-            # Print the header row
-            header = next(reader)
-            print(f"Header: {header}")
-
             for row in reader:
-                name = row['name']
-                price = cls.string_to_number(row['price'])
-                quantity = int(row['quantity'])
+                name = row["name"]
+                price = cls.string_to_number(row["price"])
+                quantity = int(row["quantity"])
                 item = cls(name, price, quantity)
                 items.append(item)
+                Item.all.append(items)
         return items
+
+    def string_to_number(value: str) -> float:
+        # статический метод, возвращающий число из числа-строки
+        try:
+            return int(value)
+        except ValueError:
+            # когда преобразование завершается неудачей
+            return 0  # значение по умолчанию.
