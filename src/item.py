@@ -47,7 +47,7 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls, csv_file: str) -> list:
-        # инициализирующий экземпляры класса Item данными из файла src/items.csv
+        # инициализируем экземпляры класса Item данными из файла src/items.csv
         items = []
         with open(csv_file, 'r', newline='', encoding='pt154') as file:
             reader = csv.DictReader(file)
