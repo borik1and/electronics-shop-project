@@ -21,6 +21,7 @@ class Item:
         self.quantity = quantity
         # Item.all.append(self)
         # print(all)
+
     @property
     def name(self) -> str:
         return self.__name
@@ -60,10 +61,15 @@ class Item:
                 Item.all.append(items)
         return items
 
-    def string_to_number(value: str) -> float:
-        # статический метод, возвращающий число из числа-строки
+    def string_to_number(value: str) -> int:
+        # Удалим возможные кавычки из строки
+        cleaned_string = value.strip("'\"")
         try:
-            return int(value)
+            float_value = float(cleaned_string)
+            # Округлим float до целого числа
+            result = round(float_value)
         except ValueError:
-            # когда преобразование завершается неудачей
-            return 0  # значение по умолчанию.
+            # Если не удалось преобразовать, вернем значение по умолчанию (например, 0)
+            result = 0
+
+        return result
