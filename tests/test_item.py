@@ -24,3 +24,10 @@ def test_apply_discount():
 def test_instantiate_from_csv():
     num_writes = len(Item.instantiate_from_csv('src/items.csv'))
     assert num_writes == 5
+
+def test_string_to_number():
+    num1 = Item.string_to_number('10')
+    num2 = Item.string_to_number('TV')
+    assert num1 == 10
+    assert num2 == 0
+
