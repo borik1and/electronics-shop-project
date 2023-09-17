@@ -53,9 +53,9 @@ class Item:
             reader = csv.DictReader(file)
 
             for row in reader:
-                name = row["name"]
-                price = cls.string_to_number(row["price"])
-                quantity = int(row["quantity"])
+                name = row['name']
+                price = cls.string_to_number(row['price'])
+                quantity = int(row['quantity'])
                 item = cls(name, price, quantity)
                 items.append(item)
                 Item.all.append(items)

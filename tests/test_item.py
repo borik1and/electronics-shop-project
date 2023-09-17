@@ -25,6 +25,7 @@ def test_instantiate_from_csv():
     num_writes = len(Item.instantiate_from_csv('src/items.csv'))
     assert num_writes == 5
 
+
 def test_string_to_number():
     num1 = Item.string_to_number('10')
     num3 = Item.string_to_number('5.0')
