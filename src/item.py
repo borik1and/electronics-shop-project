@@ -22,6 +22,11 @@ class Item:
         # Item.all.append(self)
         # print(all)
 
+    def __repr__(self):
+        return f"Item('{self.__name}', {self.price}, {self.quantity})"
+
+
+
     @property
     def name(self) -> str:
         return self.__name
