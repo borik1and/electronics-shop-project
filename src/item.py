@@ -25,15 +25,13 @@ class Item:
     def __repr__(self):
         return f"Item('{self.__name}', {self.price}, {self.quantity})"
 
-
-
     @property
     def name(self) -> str:
         return self.__name
 
     @name.setter
     def name(self, value: str) -> None:
-        """проверять, что длина наименования товара не больше
+        """Проверять, что длина наименования товара не больше
         10 симвовов. В противном случае, обрезать строку
         (оставить первые 10 символов)."""
         if len(value) > 10:
@@ -66,6 +64,7 @@ class Item:
                 Item.all.append(items)
         return items
 
+    @staticmethod
     def string_to_number(value: str) -> int:
         try:
             # Преобразовать строку в число
