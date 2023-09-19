@@ -19,3 +19,19 @@ def test_apply_discount():
     item2.apply_discount()
     assert item1.price == 10000.0
     assert item2.price == 20000.0
+
+
+def test_instantiate_from_csv():
+    num_writes = len(Item.instantiate_from_csv('src/items.csv'))
+    assert num_writes == 5
+
+
+def test_string_to_number():
+    num1 = Item.string_to_number('10')
+    num3 = Item.string_to_number('5.0')
+    num4 = Item.string_to_number('5.5')
+    num2 = Item.string_to_number('TV')
+    assert num1 == 10
+    assert num2 == 0
+    assert num3 == 5
+    assert num4 == 5
