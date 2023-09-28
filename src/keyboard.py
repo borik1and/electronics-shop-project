@@ -15,13 +15,7 @@ class LanguageMixin:
         else:
             self.__language = "EN"
 
-class Keyboard(Item):
-    __language = "EN"
 
+class Keyboard(Item, LanguageMixin):
     def __init__(self, name: str, price: float, quantity: int):
         super().__init__(name, price, quantity)
-
-    def change_lang(self, lang: str):
-        if lang == "EN" or lang == "RU":
-            self.__language = lang
-        raise ValueError("")
