@@ -39,7 +39,7 @@ def test_csv_filenotfounderror():
 def test_csv_instantiatecsverror():
     # Файл item.csv поврежден
     with pytest.raises(InstantiateCSVError) as excinfo:
-        with open('src/items10.csv', 'r', newline='', encoding='pt154') as file:
+        with open('src/items1.csv', 'r', newline='', encoding='pt154') as file:
             reader = csv.DictReader(file)
             required_columns = ['name', 'price', 'quantity']
             if not all(col in reader.fieldnames for col in required_columns):
