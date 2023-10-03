@@ -1,6 +1,7 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 from src.item import Item
 from src.phone import Phone
+import pytest
 
 
 def test_calculate_total_price():
@@ -25,6 +26,12 @@ def test_apply_discount():
 def test_instantiate_from_csv():
     num_writes = len(Item.instantiate_from_csv('src/items.csv'))
     assert num_writes == 5
+
+
+def test_csv_filenotfounderror():
+    # Файл items.csv отсутствует.
+    with pytest.raises(FileNotFoundError):
+        Item.instantiate_from_csv('src/items5.csv')
 
 
 def test_string_to_number():
