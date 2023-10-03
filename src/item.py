@@ -1,5 +1,7 @@
 import csv
 
+from src.instantiatecsverror import InstantiateCSVError
+
 
 class Item:
     """
@@ -58,19 +60,39 @@ class Item:
         # Применяет установленную скидку для конкретного товара.
 
     @classmethod
-    def instantiate_from_csv(cls, csv_file: str) -> list:
-        # инициализируем экземпляры класса Item данными из файла src/items.csv
+    def instantiate_from_csv(cls, csv_file: str = 'items.csv') -> list:
         items = []
-        with open(csv_file, 'r', newline='', encoding='pt154') as file:
-            reader = csv.DictReader(file)
+        try:
+            with open(csv_file, 'r', newline='', encoding='pt154') as file:
+                reader = csv.DictReader(file)
 
-            for row in reader:
-                name = row['name']
-                price = cls.string_to_number(row['price'])
-                quantity = int(row['quantity'])
-                item = cls(name, price, quantity)
-                items.append(item)
-                Item.all.append(items)
+                # Проверка, что reader.fieldnames не равен None
+                if reader.fieldnames is None:
+                    raise InstantiateCSVError("Файл item.csv пуст")
+
+                # Проверка заголовков столбцов в CSV файле
+                required_columns = ['name', 'price', 'quantity']
+                if not all(col in reader.fieldnames for col in required_columns):
+                    raise InstantiateCSVError("Файл item.csv поврежден")
+
+                for row in reader:
+                    try:
+                        name = row['name']
+                        price = cls.string_to_number(row['price'])
+                        quantity = int(row['quantity'])
+                        item = cls(name, price, quantity)
+                        items.append(item)
+                        Item.all.append(item)
+                    except ValueError as e:
+                        print(f"Ошибка при чтении строки из CSV файла: {e}")
+                    except KeyError as e:
+                        print(f"Отсутствует ключ {e} в строке CSV файла.")
+
+        except FileNotFoundError:
+            raise FileNotFoundError("Отсутствует файл item.csv")
+        except csv.Error as e:
+            raise InstantiateCSVError(f"Ошибка при чтении CSV файла: {e}")
+
         return items
 
     @staticmethod
