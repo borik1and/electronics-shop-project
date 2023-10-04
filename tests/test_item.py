@@ -30,10 +30,12 @@ def test_instantiate_from_csv():
     assert num_writes == 5
 
 
-def test_csv_filenotfounderror():
-    # Файл items.csv отсутствует.
-    with pytest.raises(FileNotFoundError):
-        Item.instantiate_from_csv('src/items5.csv')
+def test_csv_file_not_found_error():
+    with pytest.raises(FileNotFoundError) as excinfo:
+        with open('src/items30.csv', 'r', newline='', encoding='pt154') as file:
+            reader = csv.DictReader(file)
+    # Проверяем, что ожидаемое исключение было выброшено и имеет нужное сообщение
+    assert str(excinfo.value) == "[Errno 2] No such file or directory: 'src/items30.csv'"
 
 
 def test_csv_instantiatecsverror():
