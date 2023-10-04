@@ -73,7 +73,7 @@ class Item:
                 # Проверка заголовков столбцов в CSV файле
                 required_columns = ['name', 'price', 'quantity']
                 if not all(col in reader.fieldnames for col in required_columns):
-                    print("Файл item.csv поврежден")
+                    print("InstantiateCSVError: Файл item.csv поврежден")
 
                 for row in reader:
                     try:
@@ -89,9 +89,9 @@ class Item:
                         print(f"Отсутствует ключ {e} в строке CSV файла.")
 
         except FileNotFoundError:
-            print("Отсутствует файл item.csv")
+            print("FileNotFoundError: Отсутствует файл item.csv")
         except InstantiateCSVError:
-            print(f"Ошибка при чтении CSV файла: {e}")
+            print("InstantiateCSVError: Файл item.csv поврежден")
 
         return items
 
