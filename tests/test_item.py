@@ -38,17 +38,17 @@ def test_csv_file_not_found_error():
     assert str(excinfo.value) == "[Errno 2] No such file or directory: 'src/items30.csv'"
 
 
-def test_csv_instantiatecsverror():
-    # Файл item.csv поврежден
-    with pytest.raises(InstantiateCSVError) as excinfo:
-        with open('src/items1.csv', 'r', newline='', encoding='pt154') as file:
-            reader = csv.DictReader(file)
-            required_columns = ['name', 'price', 'quantity']
-            if not all(col in reader.fieldnames for col in required_columns):
-                raise InstantiateCSVError("Файл item.csv поврежден")
+def test_instantiate_csv_error_message():
+    with pytest.raises(InstantiateCSVError) as exc_info:
+        # Вызываем вашу функцию, которая может вызвать InstantiateCSVError
+        Item.instantiate_from_csv('src/items1.csv')
 
-    # Проверяем, что ожидаемое исключение было выброшено и имеет нужное сообщение
-    assert str(excinfo.value) == "Файл item.csv поврежден"
+    # Проверяем, что исключение было вызвано
+    assert exc_info.type == InstantiateCSVError
+
+    # Проверяем сообщение исключения
+    assert str(exc_info.value) == 'Файл item.csv поврежден'
+
 
 
 def test_string_to_number():

@@ -62,36 +62,34 @@ class Item:
     @classmethod
     def instantiate_from_csv(cls, csv_file: str = 'items.csv') -> list:
         items = []
+        # проверяем наличие файла
         try:
             with open(csv_file, 'r', newline='', encoding='pt154') as file:
                 reader = csv.DictReader(file)
 
                 # Проверка, что reader.fieldnames не равен None
                 if reader.fieldnames is None:
-                    raise InstantiateCSVError("Файл item.csv пуст")
+                    raise FileNotFoundError(f"Файл '{csv_file}' не найден.")
 
-                # Проверка заголовков столбцов в CSV файле
-                required_columns = ['name', 'price', 'quantity']
-                if not all(col in reader.fieldnames for col in required_columns):
-                    print("InstantiateCSVError: Файл item.csv поврежден")
+                try:
+                    # Проверка заголовков столбцов в CSV файле
+                    required_columns = ['name', 'price', 'quantity']
+                    if not all(col in reader.fieldnames for col in required_columns):
+                        raise InstantiateCSVError
 
-                for row in reader:
-                    try:
+                    for row in reader:
                         name = row['name']
                         price = cls.string_to_number(row['price'])
                         quantity = int(row['quantity'])
                         item = cls(name, price, quantity)
                         items.append(item)
                         Item.all.append(item)
-                    except ValueError as e:
-                        print(f"Ошибка при чтении строки из CSV файла: {e}")
-                    except KeyError as e:
-                        print(f"Отсутствует ключ {e} в строке CSV файла.")
+
+                except InstantiateCSVError as ex:
+                    raise ex
 
         except FileNotFoundError:
-            print("FileNotFoundError: Отсутствует файл item.csv")
-        except InstantiateCSVError:
-            print("InstantiateCSVError: Файл item.csv поврежден")
+            raise FileNotFoundError('Отсутствует файл item.csv')
 
         return items
 
