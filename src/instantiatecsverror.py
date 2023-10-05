@@ -1,2 +1,3 @@
 class InstantiateCSVError(Exception):
-    pass
+    def __init__(self):
+        self.message = 'Файл item.csv поврежден'
